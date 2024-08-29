@@ -2,7 +2,7 @@
 Ensure Docker and Docker Compose are installed on your machine.
 
 ## 2. Clone the Repository
-git clone https://github.com/yourusername/your-repository.git
+git clone https://github.com/DavidRuzicic/ContactsApp.git
 cd your-repository
 
 ## 3. Build and Start the Application
@@ -19,7 +19,7 @@ MySQL Database: localhost:3306 with the username: root and the password: passwor
 Preuzmite Docker i Docker Compose na vašem računaru.
 
 ## 2. Klonirajte Repozitorijum
-git clone https://github.com/yourusername/your-repository.git
+git clone https://github.com/DavidRuzicic/ContactsApp.git
 cd your-repository
 
 ## 3. Build i Pokretanje Aplikacije
