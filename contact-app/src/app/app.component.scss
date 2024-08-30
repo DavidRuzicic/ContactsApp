@@ -1,0 +1,42 @@
+.navbar {
+    background-color: #f8f9fa;
+    padding: 10px;
+
+    .navbar-brand {
+        font-size: 24px;
+        font-weight: bold;
+        color: #343a40;
+    }
+
+    .navbar-toggler {
+        border: none;
+
+        .navbar-toggler-icon {
+            color: #343a40;
+        }
+    }
+
+    .navbar-nav {
+        .nav-link {
+            color: #343a40;
+            font-size: 16px;
+            margin-right: 20px;
+
+            &:hover {
+                color: #0056b3;
+            }
+        }
+
+        .btn-outline-danger {
+            font-size: 14px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+
+            &:hover {
+                background-color: #dc3545;
+                color: #fff;
+            }
+        }
+    }
+}
