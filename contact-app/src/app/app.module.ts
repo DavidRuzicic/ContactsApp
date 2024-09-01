@@ -15,17 +15,19 @@ import { ContactService } from './services/contact.service';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { AuthGuard } from './guards/auth.guard';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { environment } from '../environments/environment';
 
 export function tokenGetter() {
   return localStorage.getItem('authToken');
 }
 
 const routes: Routes = [
+  { path: '', redirectTo: '/contacts', pathMatch: 'full' }, // Redirect root to contacts if authenticated
   { path: 'login', component: LoginComponent },
   { path: 'contacts', component: ContactListComponent, canActivate: [AuthGuard] },
   { path: 'add-contact', component: ContactFormComponent, canActivate: [AuthGuard] },
   { path: 'edit-contact/:id', component: ContactFormComponent, canActivate: [AuthGuard] },
-  { path: '**', redirectTo: '/login', pathMatch: 'full' }
+  { path: '**', redirectTo: '/login', pathMatch: 'full' } // Wildcard route to catch unknown paths
 ];
 
 @NgModule({
@@ -48,8 +50,8 @@ const routes: Routes = [
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        allowedDomains: ['localhost:4200'],
-        disallowedRoutes: ['localhost:4200/login']
+        allowedDomains: [environment.apiDomain],
+        disallowedRoutes: [`${environment.apiDomain}/login`]
       }
     })
   ],

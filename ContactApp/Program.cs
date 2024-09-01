@@ -35,13 +35,17 @@ builder.Services.AddCors(options =>
                                 .AllowAnyHeader()
                                 .AllowAnyMethod()
                                 .AllowCredentials()
-                    );
+                                );
 });
 
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(80);
+});
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
