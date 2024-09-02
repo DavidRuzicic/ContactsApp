@@ -1,0 +1,9 @@
+<div class="container">
+    <h2>Contacts</h2>
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="contact in contacts">
+            <span>{{ contact.name }}</span>
+            <a href="#/edit-contact/{{ contact.id }}" class="btn btn-sm btn-primary float-right">Edit</a>
+        </li>
+    </ul>
+</div>
