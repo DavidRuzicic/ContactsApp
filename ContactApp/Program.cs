@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using ContactApp.Data;
+using Polly;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,19 +49,36 @@ builder.WebHost.ConfigureKestrel(options =>
 });
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
+var retryPolicy = Policy.Handle<Exception>()
+                        .WaitAndRetry(5, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), 
+                        (exception, timeSpan, retryCount, context) => 
+                        {
+                            Console.WriteLine($"Retry {retryCount} encountered an error: {exception.Message}. Waiting {timeSpan} before next retry.");
+                        });
+
+retryPolicy.Execute(() =>
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    try
+    using (var scope = app.Services.CreateScope())
     {
-        dbContext.Database.EnsureCreated();
+        var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        dbContext.Database.Migrate(); // Or use Migrate() if you have migrations
         Console.WriteLine("Database connection successful.");
     }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Database connection failed: {ex.Message}");
-    }
-}
+});
+
+// using (var scope = app.Services.CreateScope())
+// {
+//     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+//     try
+//     {
+//         dbContext.Database.EnsureCreated();
+//         Console.WriteLine("Database connection successful.");
+//     }
+//     catch (Exception ex)
+//     {
+//         Console.WriteLine($"Database connection failed: {ex.Message}");
+//     }
+// }
 
 app.UseCors("AllowSpecificOrigins");
 
