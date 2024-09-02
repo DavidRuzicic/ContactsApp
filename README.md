@@ -13,6 +13,10 @@ Frontend: http://localhost:4200
 Backend: http://localhost:7139
 MySQL Database: localhost:3306 with the username: root and the password: password.
 
+## 5. Log in
+Username: admin
+Password: admin123
+
 ------------------------------------------------------------------------------------------
 
 ## 1. Instalacija
@@ -29,3 +33,7 @@ docker-compose up --build
 Frontend: http://localhost:4200
 Backend: http://localhost:7139
 MySQL Database: localhost:3306 - korisničko ime: root i lozinka: password.
+
+## 5. Log in
+Username: admin
+Password: admin123
